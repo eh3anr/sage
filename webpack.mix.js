@@ -2,6 +2,7 @@ const mix = require('laravel-mix');
 require('@tinypixelco/laravel-mix-wp-blocks');
 require('laravel-mix-purgecss');
 require('laravel-mix-copy-watched');
+const RTL = require('./rtl')
 
 /*
  |--------------------------------------------------------------------------
@@ -22,7 +23,12 @@ mix.sass('resources/assets/styles/app.scss', 'styles')
    .purgeCss({
      whitelist: require('purgecss-with-wordpress').whitelist,
      whitelistPatterns: require('purgecss-with-wordpress').whitelistPatterns,
-   });
+   })
+   .webpackConfig({
+      plugins: [
+        new RTL()
+      ]
+    });
 
 mix.js('resources/assets/scripts/app.js', 'scripts')
    .js('resources/assets/scripts/customizer.js', 'scripts')
